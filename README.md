@@ -15,7 +15,11 @@ npm run dev
 npm run build
 ```
 
-정적 배포 결과는 `dist/client` 폴더에 생성됩니다. 배포 서비스에서 설정이 필요한 경우 빌드 명령은 `npm run build`, 공개 폴더는 `dist/client`로 지정하세요.
+정적 배포 결과는 `dist/client` 폴더에 생성됩니다.
+
+## GitHub Pages
+
+`main` 브랜치에 변경사항을 올리면 GitHub Actions가 실제 웹페이지를 자동으로 생성합니다. 저장소의 **Settings → Pages → Source**를 **GitHub Actions**로 설정하세요.
 
 ## 주요 수정 파일
 
