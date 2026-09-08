@@ -34,6 +34,11 @@ jobs:
       - name: Build static site
         run: npm run build
 
+      - name: Normalize GitHub Pages asset paths
+        run: |
+          mv dist/client/Weding/_next dist/client/_next
+          rmdir dist/client/Weding
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
