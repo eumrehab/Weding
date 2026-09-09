@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: '두 가족이 만나는 날',
+  title: '배병주 · 권채연 | 두 가족이 만나는 날',
   description: '상견례를 위한 신랑·신부 소개와 결혼 준비 이야기',
 };
 

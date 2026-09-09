@@ -1,8 +1,9 @@
 import './v2.css';
+import './v3.css';
 
 const couple = [
-  { role:'GROOM', name:'신랑 이름', family:'○○○ · ○○○의 아들', birth:'생년월일을 알려주세요', region:'출신 지역', work:'현재 하는 일', copy:'차분하고 책임감이 있으며, 작은 약속도 소중히 여깁니다.', tags:['#다정함','#든든함','#산책'] },
-  { role:'BRIDE', name:'신부 이름', family:'○○○ · ○○○의 딸', birth:'생년월일을 알려주세요', region:'출신 지역', work:'현재 하는 일', copy:'밝고 세심하며, 사랑하는 사람들의 기쁨을 함께 나누는 것을 좋아합니다.', tags:['#따뜻함','#세심함','#여행'] },
+  { role:'GROOM', name:'배병주', family:'○○○ · ○○○의 아들', birth:'생년월일을 알려주세요', region:'출신 지역', work:'현재 하는 일', copy:'차분하고 책임감이 있으며, 작은 약속도 소중히 여깁니다.', tags:['#다정함','#든든함','#산책'] },
+  { role:'BRIDE', name:'권채연', family:'○○○ · ○○○의 딸', birth:'생년월일을 알려주세요', region:'출신 지역', work:'현재 하는 일', copy:'밝고 세심하며, 사랑하는 사람들의 기쁨을 함께 나누는 것을 좋아합니다.', tags:['#따뜻함','#세심함','#여행'] },
 ];
 const story = [
   ['처음 만난 날','날짜를 알려주세요','서로의 이야기에 귀 기울이며 천천히 가까워졌습니다.'],
@@ -21,7 +22,7 @@ export default function Home(){
     <nav className="topbar" aria-label="페이지 메뉴"><a className="wordmark" href="#top">우리의 첫 인사</a><div className="navlinks"><a href="#couple">두 사람</a><a href="#families">가족</a><a href="#plans">준비 이야기</a></div></nav>
     <section className="hero" id="top">
       <div className="hero-copy"><p className="eyebrow">TOGETHER WITH OUR FAMILIES</p><h1>두 가족이<br/><em>처음 만나는 날</em></h1><p className="lead">소중한 인연이 되어주신 두 가족께<br/>저희의 이야기를 전합니다.</p><a className="primary-button" href="#couple">천천히 둘러보기 <span>↓</span></a></div>
-      <div className="hero-art"><div className="arch-frame"><div className="photo-placeholder"><i>♡</i><span>두 사람의 사진</span></div></div><div className="date-card"><span>OUR FIRST GREETING</span><strong>신랑 이름 · 신부 이름</strong></div></div>
+      <div className="hero-art"><div className="arch-frame"><img className="hero-photo" src="images/baebyeongju-kwonchaeyeon.webp" alt="신랑 배병주와 신부 권채연" /></div><div className="date-card"><span>OUR FIRST GREETING</span><strong>배병주 · 권채연</strong></div></div>
     </section>
 
     <section id="couple">
@@ -51,7 +52,7 @@ export default function Home(){
 
     <section className="childhood-section"><header className="section-heading"><p className="eyebrow">LITTLE US</p><h2>어릴 적 우리의 모습</h2><p>닮은 표정과 추억을 찾아보며 편안하게 이야기를 시작해 보세요.</p></header><div className="childhood-grid"><div><i>♡</i><span>신랑 어린 시절 사진</span></div><div className="childhood-heart">&amp;</div><div><i>♡</i><span>신부 어린 시절 사진</span></div></div></section>
     <section className="future-baby-section"><div className="future-baby-art"><i>✦</i><span>두 분의 사진을 기다리고 있어요</span></div><div><p className="eyebrow">A LITTLE SURPRISE</p><h2>우리의 모습을 닮은 아이</h2><p>나중에 두 분의 정면 증명사진을 보내주시면, 얼굴의 특징을 자연스럽게 참고한 AI 2세 이미지를 준비합니다.</p><small>재미를 위한 예상 이미지이며 실제 자녀의 모습과는 관련이 없습니다.</small></div></section>
-    <section className="promise-section"><i>✦</i><blockquote>“서로를 존중하고 아끼며,<br/>두 가족과 따뜻하게 어울리는 가정을 만들겠습니다.”</blockquote><p>신랑 이름 · 신부 이름</p></section>
+    <section className="promise-section"><i>✦</i><blockquote>“서로를 존중하고 아끼며,<br/>두 가족과 따뜻하게 어울리는 가정을 만들겠습니다.”</blockquote><p>배병주 · 권채연</p></section>
     <footer><i>♥</i><p>함께 축복해 주셔서 감사합니다.</p><small>내용과 사진은 확인 후 실제 정보로 교체됩니다.</small></footer>
   </main>
 }
