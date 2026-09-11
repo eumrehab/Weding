@@ -47,8 +47,7 @@ function LoginScreen({ onAuthenticated }: { onAuthenticated: () => void }) {
     setIsSubmitting(true);
     setMessage('');
     try {
-      const familySide = side === 'groom' ? '신랑 측' : '신부 측';
-      const body = new URLSearchParams({ side: familySide, role: side, name: normalizedName, birthDate, birth: birthDate });
+      const body = new URLSearchParams({ side, name: normalizedName, birthDate });
       const response = await fetch(AUTH_URL, { method: 'POST', body });
       const data = await response.json().catch(() => null) as AuthResponse | null;
       const authenticated = response.ok && data && (data.ok === true || data.success === true || data.authenticated === true || data.authorized === true);
