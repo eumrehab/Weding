@@ -91,8 +91,8 @@ function LoginScreen({ onAuthenticated }: { onAuthenticated: () => void }) {
   </main>;
 }
 const couple = [
-  { role:'GROOM', name:'배병주', family:'○○○ · ○○○의 아들', birth:'생년월일을 알려주세요', region:'출신 지역', work:'현재 하는 일', copy:'차분하고 책임감이 있으며, 작은 약속도 소중히 여깁니다.', tags:['#다정함','#든든함','#산책'] },
-  { role:'BRIDE', name:'권채연', family:'○○○ · ○○○의 딸', birth:'생년월일을 알려주세요', region:'출신 지역', work:'현재 하는 일', copy:'밝고 세심하며, 사랑하는 사람들의 기쁨을 함께 나누는 것을 좋아합니다.', tags:['#따뜻함','#세심함','#여행'] },
+  { role:'GROOM', name:'배병주', family:'배기한 · 김미언의 아들', birth:'1998.01.03', region:'울산', work:'대학 강의, 방문 재활', mbti:'ENTJ', strength:'목표를 향해 주도적으로 나아가며, 책임감 있는 판단과 실행력으로 주변 사람들에게 든든한 믿음을 줍니다.' },
+  { role:'BRIDE', name:'권채연', family:'권혁철 · 정미숙의 딸', birth:'2002.02.18', region:'울산', work:'코디네이터', mbti:'ESFJ', strength:'세심한 배려와 따뜻한 공감으로 사람들을 편안하게 하며, 소중한 관계를 정성스럽게 가꾸는 사람입니다.' },
 ];
 const story = [
   ['처음 만난 날','날짜를 알려주세요','서로의 이야기에 귀 기울이며 천천히 가까워졌습니다.'],
@@ -116,7 +116,7 @@ function WeddingPage(){
 
     <section id="couple">
       <header className="section-heading"><p className="eyebrow">MEET THE COUPLE</p><h2>저희를 소개합니다</h2><p>서로 다르기에 더 잘 어울리는 두 사람입니다.</p></header>
-      <div className="couple-grid">{couple.map((p,i)=><div className="profile-wrap" key={p.role}><div className="mini-photo"><i>♡</i><span>{i?'신부':'신랑'} 사진</span></div><article className="profile"><span className="role">{p.role}</span><h3>{p.name}</h3><p className="family-line">{p.family}</p><dl><div><dt>생년월일</dt><dd>{p.birth}</dd></div><div><dt>출신</dt><dd>{p.region}</dd></div><div><dt>하는 일</dt><dd>{p.work}</dd></div></dl><p>{p.copy}</p><div className="tags">{p.tags.map(t=><span key={t}>{t}</span>)}</div></article></div>)}</div>
+      <div className="couple-grid">{couple.map((p,i)=><div className="profile-wrap" key={p.role}><div className="mini-photo"><i>♡</i><span>{i?'신부':'신랑'} 사진</span></div><article className="profile"><span className="role">{p.role}</span><h3>{p.name}</h3><p className="family-line">{p.family}</p><dl><div><dt>생년월일</dt><dd>{p.birth}</dd></div><div><dt>출신</dt><dd>{p.region}</dd></div><div><dt>하는 일</dt><dd>{p.work}</dd></div><div><dt>MBTI</dt><dd><strong className="mbti-type">{p.mbti}</strong></dd></div></dl><p className="mbti-strength">{p.strength}</p></article></div>)}</div>
       <div className="each-other"><i>♡</i><div><span>서로를 소개하는 한마디</span><p>“상대방이 어떤 사람인지 두 분의 말로 들려주세요.”</p></div></div>
     </section>
 
