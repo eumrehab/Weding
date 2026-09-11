@@ -1,6 +1,96 @@
+'use client';
+
 import './v2.css';
 import './v3.css';
 
+import { useState, type FormEvent } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+
+const AUTH_URL = 'https://script.google.com/macros/s/AKfycbzE7sqsd0RzI5ho7XGlkLCGi2bDWd0i7JRSCAJMmSJQuJ7D5CotrIyLCZp3k8EzFGPeJA/exec';
+type FamilySide = 'groom' | 'bride';
+type AuthResponse = { ok?: boolean; success?: boolean; authenticated?: boolean; authorized?: boolean; message?: string };
+
+function formatBirthDate(value: string) {
+  const digits = value.replace(/\D/g, '').slice(0, 8);
+  if (digits.length <= 4) return digits;
+  if (digits.length <= 6) return `${digits.slice(0, 4)}-${digits.slice(4)}`;
+  return `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6)}`;
+}
+
+function isValidBirthDate(value: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [year, month, day] = value.split('-').map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
+}
+
+function LoginScreen({ onAuthenticated }: { onAuthenticated: () => void }) {
+  const [side, setSide] = useState<FamilySide>('groom');
+  const [name, setName] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const normalizedName = name.trim();
+    if (!normalizedName) {
+      setMessage('이름을 입력해 주세요.');
+      return;
+    }
+    if (!isValidBirthDate(birthDate)) {
+      setMessage('생년월일을 0000-00-00 형식으로 입력해 주세요.');
+      return;
+    }
+    setIsSubmitting(true);
+    setMessage('');
+    try {
+      const familySide = side === 'groom' ? '신랑 측' : '신부 측';
+      const body = new URLSearchParams({ side: familySide, role: side, name: normalizedName, birthDate, birth: birthDate });
+      const response = await fetch(AUTH_URL, { method: 'POST', body });
+      const data = await response.json().catch(() => null) as AuthResponse | null;
+      const authenticated = response.ok && data && (data.ok === true || data.success === true || data.authenticated === true || data.authorized === true);
+      if (!authenticated) {
+        setMessage(data?.message || '입력하신 정보를 확인해 주세요.');
+        return;
+      }
+      onAuthenticated();
+    } catch {
+      setMessage('잠시 후 다시 시도해 주세요.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return <main className="login-page">
+    <section className="login-panel" aria-labelledby="login-title">
+      <div className="login-intro">
+        <p className="eyebrow">OUR FIRST GREETING</p>
+        <h1 id="login-title">두 가족의<br/><em>첫 만남</em></h1>
+        <p>소중한 가족분들을 위해 준비한 공간입니다.</p>
+        <div className="login-couple"><span>배병주</span><i>♥</i><span>권채연</span></div>
+      </div>
+      <div className="login-form-wrap">
+        <div className="login-form-heading"><span>WELCOME</span><h2>반갑습니다</h2><p>가족 확인을 위해 정보를 입력해 주세요.</p></div>
+        <form className="login-form" onSubmit={handleSubmit} noValidate>
+          <fieldset>
+            <legend>어느 가족이신가요?</legend>
+            <RadioGroup className="side-options" value={side} onValueChange={(value) => setSide(value as FamilySide)} aria-label="가족 측 선택">
+              <label className={side === 'groom' ? 'selected' : ''}><RadioGroupItem value="groom"/><span><small>GROOM</small>신랑 측</span></label>
+              <label className={side === 'bride' ? 'selected' : ''}><RadioGroupItem value="bride"/><span><small>BRIDE</small>신부 측</span></label>
+            </RadioGroup>
+          </fieldset>
+          <label className="login-field"><span>이름</span><Input value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" placeholder="이름을 입력해 주세요" aria-invalid={message.includes('이름') || undefined}/></label>
+          <label className="login-field"><span>생년월일</span><Input value={birthDate} onChange={(event) => setBirthDate(formatBirthDate(event.target.value))} inputMode="numeric" autoComplete="bday" placeholder="0000-00-00" maxLength={10} aria-invalid={(message.includes('생년월일') || message.includes('정보')) || undefined}/></label>
+          <p className="login-message" role="alert" aria-live="polite">{message}</p>
+          <Button className="login-button" type="submit" disabled={isSubmitting}>{isSubmitting ? '확인하고 있습니다' : '초대장 열기'}<span aria-hidden="true">→</span></Button>
+        </form>
+      </div>
+    </section>
+  </main>;
+}
 const couple = [
   { role:'GROOM', name:'배병주', family:'○○○ · ○○○의 아들', birth:'생년월일을 알려주세요', region:'출신 지역', work:'현재 하는 일', copy:'차분하고 책임감이 있으며, 작은 약속도 소중히 여깁니다.', tags:['#다정함','#든든함','#산책'] },
   { role:'BRIDE', name:'권채연', family:'○○○ · ○○○의 딸', birth:'생년월일을 알려주세요', region:'출신 지역', work:'현재 하는 일', copy:'밝고 세심하며, 사랑하는 사람들의 기쁨을 함께 나누는 것을 좋아합니다.', tags:['#따뜻함','#세심함','#여행'] },
@@ -17,7 +107,7 @@ const plans = [
 ];
 const checklist = ['예식장','웨딩 촬영','드레스·메이크업','신혼집','혼주 한복','혼주 양복','청첩장','신혼여행'];
 
-export default function Home(){
+function WeddingPage(){
   return <main>
     <nav className="topbar" aria-label="페이지 메뉴"><a className="wordmark" href="#top">우리의 첫 인사</a><div className="navlinks"><a href="#couple">두 사람</a><a href="#families">가족</a><a href="#plans">준비 이야기</a></div></nav>
     <section className="hero" id="top">
@@ -55,4 +145,9 @@ export default function Home(){
     <section className="promise-section"><i>✦</i><blockquote>“서로를 존중하고 아끼며,<br/>두 가족과 따뜻하게 어울리는 가정을 만들겠습니다.”</blockquote><p>배병주 · 권채연</p></section>
     <footer><i>♥</i><p>함께 축복해 주셔서 감사합니다.</p><small>내용과 사진은 확인 후 실제 정보로 교체됩니다.</small></footer>
   </main>
+}
+
+export default function Home(){
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  return isAuthenticated ? <WeddingPage/> : <LoginScreen onAuthenticated={() => setIsAuthenticated(true)}/>;
 }

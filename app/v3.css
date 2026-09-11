@@ -6,3 +6,65 @@
   object-position: center 62%;
   border-radius: 220px 220px 3px 3px;
 }
+
+.login-page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 4vw, 54px);
+  background: radial-gradient(circle at 12% 14%, rgba(187,141,74,.14), transparent 26%), linear-gradient(135deg,#0d2821,#173d33 62%,#244b40);
+}
+.login-panel {
+  width: min(1040px,100%);
+  min-height: 640px;
+  display: grid;
+  grid-template-columns: 1.02fr .98fr;
+  padding: 0;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: 0 30px 90px rgba(4,19,15,.36);
+}
+.login-intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(48px,7vw,82px);
+  color: #fff;
+  background: linear-gradient(rgba(10,39,31,.76),rgba(10,39,31,.92)), url('/images/baebyeongju-kwonchaeyeon.webp') center 58% / cover;
+}
+.login-intro::after { content:''; position:absolute; inset:24px; border:1px solid rgba(223,189,130,.35); pointer-events:none; }
+.login-intro > * { position:relative; z-index:1; }
+.login-intro h1 { margin-bottom:24px; font-size:clamp(3.2rem,6vw,5.7rem); }
+.login-intro > p:not(.eyebrow) { color:rgba(255,255,255,.8); }
+.login-couple { display:flex; align-items:center; gap:14px; margin-top:52px; font-family:Georgia,'Batang',serif; letter-spacing:.08em; }
+.login-couple i { color:#dfbd82; font-size:.72rem; font-style:normal; }
+.login-form-wrap { display:flex; flex-direction:column; justify-content:center; padding:clamp(42px,6vw,72px); }
+.login-form-heading span { color:var(--gold); font-size:.75rem; font-weight:700; letter-spacing:.24em; }
+.login-form-heading h2 { margin:10px 0 8px; font-size:clamp(2.3rem,4vw,3.4rem); }
+.login-form-heading p { margin-bottom:38px; color:#6b7771; }
+.login-form { display:grid; gap:22px; }
+.login-form fieldset { min-width:0; margin:0; padding:0; border:0; }
+.login-form legend,.login-field > span { display:block; margin-bottom:9px; color:#40574f; font-size:.88rem; font-weight:700; }
+.side-options { grid-template-columns:1fr 1fr; gap:10px; }
+.side-options label { display:flex; align-items:center; gap:11px; min-height:64px; padding:12px 15px; cursor:pointer; border:1px solid var(--line); background:#fff; transition:border-color .2s,background .2s; }
+.side-options label.selected { border-color:var(--gold); background:#fbf6ec; }
+.side-options label > span:last-child { display:flex; flex-direction:column; line-height:1.35; }
+.side-options small { color:#a28a66; font-size:.67rem; letter-spacing:.16em; }
+.side-options [data-slot='radio-group-item'] { border-color:#ad9e88; }
+.side-options [data-slot='radio-group-item'][data-checked] { border-color:var(--ink); background:var(--ink); }
+.login-field input { height:50px; border-radius:0; border-color:var(--line); padding:0 15px; background:#fff; font-size:1rem; }
+.login-field input:focus-visible { border-color:var(--gold); box-shadow:0 0 0 3px rgba(187,141,74,.14); }
+.login-message { min-height:24px; margin:-8px 0 -10px; color:#a34d3d; font-size:.85rem; }
+.login-button { width:100%; height:52px; justify-content:space-between; padding:0 19px; border-radius:0; background:var(--ink); color:#fff; font-size:.95rem; }
+.login-button:hover { background:#285649; }
+@media(max-width:760px){
+  .login-page { padding:0; place-items:stretch; }
+  .login-panel { min-height:100svh; grid-template-columns:1fr; }
+  .login-intro { min-height:300px; padding:54px 42px 44px; }
+  .login-intro::after { inset:15px; }
+  .login-intro h1 { margin-bottom:12px; font-size:clamp(2.8rem,15vw,4.2rem); }
+  .login-couple { margin-top:24px; }
+  .login-form-wrap { padding:42px 24px 48px; }
+  .login-form-heading p { margin-bottom:30px; }
+}
